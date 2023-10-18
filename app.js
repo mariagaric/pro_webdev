@@ -1,6 +1,6 @@
 const express = require('express');
 const { engine } = require('express-handlebars');
-const sqlite3 = require('sqlite3').verbose();
+const db = require('./infodatabase')
 const bodyParser= require('body-parser')
 const session = require('express-session');
 const connect = require('connect-sqlite3'); 
@@ -11,70 +11,6 @@ const bcrypt = require("bcrypt")
 const saltRounds=10;
 const app = express();
 const port = 8080
-
-
-const db = new sqlite3.Database('database.db', (err) => {
-  if (err) {
-    console.error('Error opening the database:', err.message);
-  } else {
-    console.log('Connected to the database successfully!');
-  }
-});
-
-db.serialize(()=>{
-  db.run(`
-    CREATE TABLE IF NOT EXISTS "user" (
-      "userID" INTEGER NOT NULL UNIQUE,
-      "username" CHAR NOT NULL,
-      "password" CHAR NOT NULL,
-      "email" CHAR NOT NULL,
-      "phone" INTEGER NOT NULL,
-      PRIMARY KEY("userID" AUTOINCREMENT)
-    );
-  `);
-  
-  // Create education table
-  db.run(`
-    CREATE TABLE IF NOT EXISTS "education" (
-      "educationID" INTEGER NOT NULL UNIQUE,
-      "userID" INTEGER NOT NULL,
-      "degree" CHAR NOT NULL,
-      "school" CHAR NOT NULL,
-      "description" TEXT NOT NULL,
-      FOREIGN KEY("userID") REFERENCES "user"("userID"),
-      PRIMARY KEY("educationID" AUTOINCREMENT)
-    );
-  `);
-  
-  // Create experience table
-  db.run(`
-    CREATE TABLE IF NOT EXISTS "experience" (
-      "experienceID" INTEGER NOT NULL UNIQUE,
-      "userID" INTEGER NOT NULL,
-      "company" CHAR,
-      "jobTitle" CHAR NOT NULL,
-      "description" TEXT NOT NULL,
-      FOREIGN KEY("userID") REFERENCES "user"("userID"),
-      PRIMARY KEY("experienceID" AUTOINCREMENT)
-    );
-  `);
-  
-  // Create projects table
-  db.run(`
-    CREATE TABLE IF NOT EXISTS "projects" (
-      "projectID" INTEGER NOT NULL UNIQUE,
-      "userID" INTEGER,
-      "projectType" TEXT,
-      "projectTitle" TEXT,
-      "projectDesc" TEXT,
-      FOREIGN KEY("userID") REFERENCES "user"("userID"),
-      PRIMARY KEY("projectID" AUTOINCREMENT)
-    );
-  `);
-
-})
-
-
 
 
 //connect to the database located in the model folder.
