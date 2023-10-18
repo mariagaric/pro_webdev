@@ -1,0 +1,32 @@
+
+    <nav>
+        <div class="navbar">
+            <section class="navbar-section">
+                <ul>
+                    <li>
+                     <a href="/" class="btn btn-link"> Home </a>
+                    </li>
+                    <li>
+                     <a href="/projects" class="btn btn-link"> Projects </a>
+                    </li>
+                    <li>
+                    <a href="/about" class="btn btn-link"> About </a>
+                    </li>
+                    <li>
+                    <a href="/contact" class="btn btn-link"> Contact </a>
+                    </li>
+                    <li>
+                        {{#if isLoggedIn}}
+                    <div class="to-the-right">
+                        Hi, {{name}}! &nbsp; &nbsp;
+                        <a href="/logout" class="btn btn-link">Log Out</a>
+                    </div>
+                {{else}}
+                    <a href="/login" class="btn btn-link to-the-right">Log In</a>
+                {{/if}}
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </nav>
+
