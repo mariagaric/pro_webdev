@@ -178,7 +178,7 @@ const dataProjects = [
     {
         "projectDesc": "Blackjack game constructed in object-oriented programming",
         "projectID": 2,
-        "projectTitle": "Blackjack programming game",
+        "projectTitle": "Blackjack Programming Game",
         "projectType": "Education ",
         "userID": 1
     },
@@ -190,6 +190,7 @@ const dataProjects = [
         "userID": 1
     }
 ]
+
 /*
 const statementP = db.prepare ('INSERT INTO projects (projectID, userID, projectType, ProjectTitle, projectDesc) VALUES (?, ?, ?, ?, ?)')
 dataProjects.forEach((pro)=>{
@@ -214,8 +215,8 @@ dataEducation.forEach((edu)=>{
 
 
 // Do the same for other tables (user, education, projects) using prepared statements and the run method.
-*/
 
+*/
 
 module.exports = db;
   

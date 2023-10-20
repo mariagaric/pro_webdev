@@ -1,20 +1,20 @@
 const express = require('express');
 const { engine } = require('express-handlebars');
 const db = require('./infodatabase')
-const bodyParser= require('body-parser')
+const bodyParser = require('body-parser')
 const session = require('express-session');
-const connect = require('connect-sqlite3'); 
+const connect = require('connect-sqlite3');
 //const cookieParser = require('cookie-parser')
 const connectSqlite3 = require('connect-sqlite3');
 const { LIMIT_EXPR_DEPTH } = require('sqlite3');
 const bcrypt = require("bcrypt")
-const saltRounds=10;
+const saltRounds = 10;
 const app = express();
 const port = 8080
 
 
 //connect to the database located in the model folder.
-  
+
 
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
@@ -28,65 +28,66 @@ app.use(express.static('public'))
 
 // defines a middleware to log all the incoming requests' URL
 app.use((req, res, next) => {
-    console.log("Req. URL: ", req.url)
-    next()
+  console.log("Req. URL: ", req.url)
+  next()
 })
 
 //Post forms 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //Store session in the database
-const SQLiteStore= connectSqlite3(session)
+const SQLiteStore = connectSqlite3(session)
 
 app.use(session({
-  store: new SQLiteStore({db: "session-db.db"}),
+  store: new SQLiteStore({ db: "session-db.db" }),
   saveUninitialized: false,
   resave: false,
-  secret:"61Om318808"
+  secret: "61Om318808"
 }));
 
 //Routes
 app.get('/', (req, res) => {
-  const model={
+  const model = {
     isLoggedIn: req.session.isLoggedIn,
     name: req.session.name,
     isAdmin: req.session.isAdmin
   }
-    res.render('home', model);
+  res.render('home', model);
 });
 
 app.get('/projects', (req, res) => {
-  const model={
-    isLoggedIn: req.session.isLoggedIn,
-    name: req.session.name,
-    isAdmin: req.session.isAdmin
-  }
-  db.get("select * from projcts",  (err,projects)=>{
-    if (err){
+  db.all("SELECT * FROM projects", (err, data) => {
+    if (err) {
 
-    } else{
-      res.status(200).render('projects.handlebars', model, projects);
+    } else {
+      console.log(data);
+      const model = {
+        isLoggedIn: req.session.isLoggedIn,
+        name: req.session.name,
+        isAdmin: req.session.isAdmin,
+        projects: data
+      }
+      res.status(200).render('projects.handlebars', model);
     }
   })
-
 });
 
 app.get('/about', (req, res) => {
-  db.all('SELECT * FROM education',  (err, edu) => {
-    if (err){
+  db.all('SELECT * FROM education', (err, edu) => {
+    if (err) {
 
 
     } else {
       const myEdu = edu;
-      db.all('SELECT * FROM experience', (err, exp) =>{
-        if (err){
+      db.all('SELECT * FROM experience', (err, exp) => {
+        if (err) {
 
-        }else{
+        } else {
           const myExp = exp;
           console.log(myEdu);
           console.log(myExp);
-          const model={
+          const model = {
             isLoggedIn: req.session.isLoggedIn,
             name: req.session.name,
             isAdmin: req.session.isAdmin,
@@ -96,14 +97,14 @@ app.get('/about', (req, res) => {
           res.status(200).render('about.handlebars', model);
         }
       })
-      
+
     }
   })
 });
 
 
 app.get('/contact', (req, res) => {
-  const model={
+  const model = {
     isLoggedIn: req.session.isLoggedIn,
     name: req.session.name,
     isAdmin: req.session.isAdmin
@@ -113,7 +114,7 @@ app.get('/contact', (req, res) => {
 
 
 app.get('/login', (req, res) => {
-  const model={
+  const model = {
     isLoggedIn: req.session.isLoggedIn,
     name: req.session.name,
     isAdmin: req.session.isAdmin
@@ -123,14 +124,14 @@ app.get('/login', (req, res) => {
 
 async function comparePasswords(plainTextPassword, hashedPassword) {
   try {
-      if (!plainTextPassword || !hashedPassword) {
-          console.error('Both plainTextPassword and hashedPassword must be provided');
-          return [false, true];
-      }
-      const match = await bcrypt.compare(plainTextPassword, hashedPassword);
-      return [match, false];
-  } catch (error) {
+    if (!plainTextPassword || !hashedPassword) {
+      console.error('Both plainTextPassword and hashedPassword must be provided');
       return [false, true];
+    }
+    const match = await bcrypt.compare(plainTextPassword, hashedPassword);
+    return [match, false];
+  } catch (error) {
+    return [false, true];
   }
 }
 app.post('/login', (req, res) => {
@@ -139,7 +140,7 @@ app.post('/login', (req, res) => {
 
   // Retrieve the hashed password from your database based on the username
   const sql = 'SELECT username, password, role FROM user WHERE username = ?';
- 
+
 
   db.get(sql, [user], async (err, row) => {
     if (err) {
@@ -149,7 +150,7 @@ app.post('/login', (req, res) => {
 
     if (row) {
       const hashedPasswordFromDatabase = row.password;
-      const [result,compareErr]= await comparePasswords(plainTextPassword,hashedPasswordFromDatabase)
+      const [result, compareErr] = await comparePasswords(plainTextPassword, hashedPasswordFromDatabase)
 
       // Compare the hashed password with the provided plain text password
       if (compareErr) {
@@ -160,19 +161,19 @@ app.post('/login', (req, res) => {
       if (result) {
         console.log(`${user} successfully logged in!`);
 
-        req.session.isAdmin = (row.role==1);
+        req.session.isAdmin = (row.role == 1);
         req.session.isLoggedIn = true;
         req.session.name = user;
         res.redirect('/');
       } else {
-        
+
         console.log('Login was unsuccessful, wrong user/password!');
         req.session.isAdmin = false;
         req.session.isLoggedIn = false;
         req.session.name = '';
         res.redirect('/login');
       }
-  
+
     } else {
       // User not found in the database
       console.log('User not found');
@@ -195,8 +196,8 @@ app.get('/', (req, res) => {
   res.render('home.handlebars', model);
 });
 
-app.get('/logout', (req,res)=>{
-  req.session.destroy((err)=>{
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
     console.log("Error")
   })
   console.log('Logged out..')
@@ -209,5 +210,5 @@ app.get('/logout', (req,res)=>{
 
 // run the server and make it listen to the port
 app.listen(port, () => {
-    console.log(`Server running and listening on port ${port}...`)
+  console.log(`Server running and listening on port ${port}...`)
 });

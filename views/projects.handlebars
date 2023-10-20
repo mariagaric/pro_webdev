@@ -1,6 +1,6 @@
 <div>
-    <div class="container">
-        <h1>My Projects</h1>
+    <div>
+        <h1 style="margin: 20px;">My Projects</h1>
         <div class="columns col-gapless">
             {{#if dbError}}
                 <div>
@@ -9,17 +9,10 @@
                 </div>
             {{else}}
                 {{#each projects}}
-                    <div class="column col-3 col-md-6 col-sm-12">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="{{pimgURL}}" alt="{{pimgURL}}" class="img-responsive">
-                            </div>
-                            <div class="card-header">
-                                <div class="card-title h3">{{pname}}</div>
-                                <div class="card-subtitle text-gray">{{pyear}} --- {{ptype}}</div>
-                            </div>
-                        </div>
-                    </div>
+                <section class="container" style="margin: 20px;"> 
+                    <h3>{{projectTitle}}</h3>
+                    <p> {{projectDesc}} </p>
+                </section>
                 {{/each}}
             {{/if}}
         </div>
