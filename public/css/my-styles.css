@@ -16,6 +16,20 @@ body {
             background-position: 0% 50%;
         }
     }
+
+.containerProject{
+    display: flex;
+    flex-direction: wrap;
+}
+
+
+.boxProject {
+    border: 10px;
+    border-style: solid;
+    border-color: #fff;
+    flex-basis: (33.33% -10px);
+
+}
     
 
 .menu{
@@ -52,14 +66,54 @@ p, li{
     border-style: solid;
     border-color: #fff;
 }
-.tab-button {
+
+.tabButtonProject {
     background-color: #e1db72;
     border: none;
-    color: #333;
+    color: #0e0d0d;
     padding: 10px 20px;
-    cursor: pointer;
     border-radius: 4px;
 }
+.tabButtonCRUDU{
+    background-color:#e4b1f1;
+    border: none;
+    color: #0e0d0d;
+    padding: 10px;
+    border-radius: 4px;
+    justify-content: space-between;
+}
+.b{
+    position: relative;
+    overflow: hidden;
+}
+.tabButtonCRUDU:hover{
+    background-color:#ffffff;
+    border: none;
+    color: #0e0d0d;
+    padding: 10px;
+    border-radius: 4px;
+    justify-content: space-between;
+}
+.tabButtonCRUD {
+    background-color:#e4b1f1;
+    border: none;
+    color: #0e0d0d;
+    padding: 10px;
+    border-radius: 4px;
+    justify-content: space-between;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+}
+
+.tabContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+    margin-bottom: 35px;
+}
+
 nav {
     display: flex;
     align-items: center;

@@ -61,12 +61,18 @@ app.get('/projects', (req, res) => {
     if (err) {
 
     } else {
-      console.log(data);
+
       const model = {
         isLoggedIn: req.session.isLoggedIn,
         name: req.session.name,
         isAdmin: req.session.isAdmin,
-        projects: data
+        projects: data,
+        helpers: {
+          check(aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) {
+            if (req.session.isAdmin) return true;
+            else return false;
+          }
+        }
       }
       res.status(200).render('projects.handlebars', model);
     }
@@ -85,8 +91,6 @@ app.get('/about', (req, res) => {
 
         } else {
           const myExp = exp;
-          console.log(myEdu);
-          console.log(myExp);
           const model = {
             isLoggedIn: req.session.isLoggedIn,
             name: req.session.name,
@@ -112,6 +116,68 @@ app.get('/contact', (req, res) => {
   res.render('contact.handlebars', model);
 });
 
+app.post('/createPro', (req, res) => {
+  console.log(req.body);
+  const model = {
+    isLoggedIn: req.session.isLoggedIn,
+    name: req.session.name,
+    isAdmin: req.session.isAdmin
+  };
+  db.run("INSERT INTO projects (projectTitle, projectType, projectDesc) VALUES (?, ?, ?)", [req.body.title, req.body.info, req.body.desc], (error) => {
+    if (error) {
+    } else {
+      res.status(201).redirect("/projects")
+    }
+  })
+})
+const updateProject = (updateID, req, res) => {
+  db.all("SELECT * FROM projects WHERE projectsID = ?"[updateID], (dbPro, err) => {
+    if (err) {
+      //gör något om du inte hittar datan här
+
+    } else {
+      const model = {
+        isLoggedIn: req.session.isLoggedIn,
+        name: req.session.name,
+        isAdmin: req.session.isAdmin,
+        t: dbPro.projectTitle,
+        i: dbPro.projectType,
+        d: dbPro.projectDesc,
+        id: updateID
+
+      }
+      res.render('update.handlebars', model)
+
+    }
+  })
+}
+app.post('/updatePro', (req, res) => {
+  var sqlQuery = `UPDATE projects SET projectType = ?, projectTitle = ?, projectDesc = ? WHERE projectID = ?`;
+  db.run(sqlQuery, [req.body.projectType, req.body.projectTitle, req.body.projectDesc, req.body.id], (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect('/projects')
+    }
+  });
+
+  // vet dock om det är så bra då det är nästan en kopia av min kod och om han hittar det här..
+
+})
+app.post('/buttonProject', (req, res) => {
+  let delID = req.body.del;
+  let updateID = req.body.up;
+  if (delID) {
+    db.run("DELETE FROM projects WHERE projectID = ?", [delID], (error) => {
+      if (error) {
+      } else {
+        res.status(200).redirect("/projects")
+      }
+    })
+
+  } else return updateProject(updateID, req, res);
+}
+)
 
 app.get('/login', (req, res) => {
   const model = {
@@ -185,9 +251,8 @@ app.post('/login', (req, res) => {
   });
 });
 
-
 app.get('/', (req, res) => {
-  console.log("Session: ", req.session)
+  console.log("Session:", req.session)
   const model = {
     isLoggedIn: req.session.isLoggedIn,
     name: req.session.name,
@@ -203,8 +268,6 @@ app.get('/logout', (req, res) => {
   console.log('Logged out..')
   res.redirect('/')
 });
-
-
 
 
 
