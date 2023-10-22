@@ -161,7 +161,6 @@ app.post('/updatePro', (req, res) => {
     }
   });
 
-  // vet dock om det är så bra då det är nästan en kopia av min kod och om han hittar det här..
 
 })
 app.post('/buttonProject', (req, res) => {

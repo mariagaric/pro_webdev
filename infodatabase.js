@@ -179,7 +179,7 @@ const dataProjects = [
     "projectDesc": "Blackjack game constructed in object-oriented programming",
     "projectID": 2,
     "projectTitle": "Blackjack Programming Game",
-    "projectType": "Education ",
+    "projectType": "fcvjhgbjh ",
     "userID": 1
   },
   {
@@ -188,21 +188,21 @@ const dataProjects = [
     "projectTitle": "Database for Bank",
     "projectType": "Other",
     "userID": 1
-  }
+  },
 
-    {
-    "projectDesc": "b",
+  {
+    "projectDesc": "The ShopSmart: Your Personal Shopping Assistant project is a cutting-edge mobile application designed to revolutionize the way we shop. This innovative app is your go-to companion for a smarter and more efficient shopping experience. ShopSmart is all about making your shopping journey hassle-free, convenient, and enjoyable.",
     "projectID": 4,
-    "projectTitle": "fdch",
-    "projectType": "Other",
+    "projectTitle": "ShopSmart: Your Personal Shopping Assistant",
+    "projectType": "Mobile App Developmenter",
     "userID": 1
-  }
-
-{
-    "projectDesc": "b",
+  },
+  
+  {
+    "projectDesc": "Chess Game in Java",
     "projectID": 5,
-    "projectTitle": "gvfj",
-    "projectType": "Other",
+    "projectTitle": "Chess Game",
+    "projectType": "vgyhvvghg",
     "userID": 1
   }
 ]
