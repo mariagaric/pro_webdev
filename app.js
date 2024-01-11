@@ -14,8 +14,6 @@ const port = 8080
 
 
 //connect to the database located in the model folder.
-
-
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 // defines the views directory
@@ -116,6 +114,26 @@ app.get('/contact', (req, res) => {
   res.render('contact.handlebars', model);
 });
 
+app.get('/project-more/:id', (req, res) => {
+  const id= req.params.id
+  console.log('Received project ID:', id);
+  db.get("SELECT * FROM projects WHERE projectID=?", [id], function (error, theProjects) {
+    if (error) {
+    } else {
+      console.log(theProjects);
+      const model = {
+        project: theProjects,
+        isLoggedIn: req.session.isLoggedIn,
+        name: req.session.name,
+        isAdmin: req.session.isAdmin,
+      }
+      console.log(model)
+      res.render("project-more.handlebars", model); 
+    }
+  }) 
+});
+
+
 app.post('/createPro', (req, res) => {
   console.log(req.body);
   const model = {
@@ -163,6 +181,7 @@ app.post('/updatePro', (req, res) => {
 
 
 })
+///DELETE
 app.post('/buttonProject', (req, res) => {
   let delID = req.body.del;
   let updateID = req.body.up;

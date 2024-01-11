@@ -1,0 +1,22 @@
+{{#if isAdmin}}
+<div class="boxProject" style="margin: 20px;">
+    <h3>Update Project {{t}} </h3>
+    <div class="boxProject2" style="margin: 20px;">
+        <div class="form">
+            <form action="/createPro" method="post">
+
+                <label for="fname"> Title:</label> <br>
+                <input type="text" name="projectTitle" value="{{t}}"> <br><br>
+                <label for="fname">Info: </label> <br>
+                <textarea type="text-area" rows="3" name="projectType" value="{{i}}"></textarea> <br><br>
+                <label for="fname">Description:</label> <br>
+                <textarea type="text-area" rows="5" name="projectDesc" value="{{d}}"></textarea> <br><br>
+                <button class="tabButtonCRUDU" type="submit" name="id" value="{{id}}" style="color: black;">
+                    Create
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{{else}}
+{{/if}}

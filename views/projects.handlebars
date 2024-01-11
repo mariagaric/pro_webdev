@@ -1,13 +1,12 @@
 <h1 style="margin: 20px;">My Projects</h1>
 <div class="containerProject">
-
-
+<div class="flexContainer">
     {{#each projects}}
     <div class="boxProject" style="margin: 20px;">
         <h3>{{projectTitle}}</h3>
         <p> {{projectDesc}} </p>
         <div class="tabContainer">
-            <button class="tabButtonProject"> Read More </button>
+            <a href="/project-more/{{projectID}}" class="tabButtonProject">Read More</a>
         </div>
         {{#if (check this)}}
         <div class="k">
@@ -24,6 +23,7 @@
     </div>
     {{/each}}
 
+</div>
 </div>
 
 {{#if isAdmin}}
