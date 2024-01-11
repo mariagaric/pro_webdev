@@ -169,42 +169,35 @@ const dataExperience = [
 
 const dataProjects = [
   {
-    "projectDesc": "Database group project in SQL with CRUD operations",
+    "projectDesc": "The Online Banking System project is a comprehensive database-driven application designed to streamline and enhance the banking experience for both customers and administrators. This project aims to provide a secure, efficient, and user-friendly platform for various banking operations, promoting accessibility and convenience. Including SQL queries and normalization.",
     "projectID": 1,
-    "projectTitle": "Online Webshop SQL",
+    "projectTitle": "Online Banking Database",
     "projectType": "Database Project",
     "userID": 1
   },
   {
-    "projectDesc": "Blackjack game constructed in object-oriented programming",
+    "projectDesc": "Assistant project is a cutting-edge mobile application designed to revolutionize the way we shop. This innovative app is your go-to companion for a smarter and more efficient shopping experience. ShopSmart is all about making your shopping journey hassle-free, convenient, and enjoyable.",
     "projectID": 2,
-    "projectTitle": "Blackjack Programming Game",
-    "projectType": "fcvjhgbjh ",
+    "projectTitle": "ShopSmart: Your Personal Shopping Assistant",
+    "projectType": "Using object oriented fundamentals",
     "userID": 1
   },
   {
-    "projectDesc": "Hobby project, created a database for a bank with SQL and CRUD operations",
-    "projectID": 3,
-    "projectTitle": "Database for Bank",
+    "projectDesc": "Java-based chess game is a captivating application that leverages the principles of Object-Oriented Programming (OOP) to bring the classic game to life. With an intuitive graphical interface, players can engage in strategic battles on an 8x8 chessboard. The game employs well-defined classes for each chess piece, embracing the tenets of encapsulation, inheritance, and polymorphism. Through OOP, the code is modular, allowing for easy maintenance and extensibility. The chess game showcases Java's prowess in facilitating a structured and efficient approach to game development, providing an enjoyable and intellectually stimulating experience for players.",
+    "projectID": 5,
+    "projectTitle": "Chess Game Java Project",
     "projectType": "Other",
     "userID": 1
   },
 
   {
-    "projectDesc": "The ShopSmart: Your Personal Shopping Assistant project is a cutting-edge mobile application designed to revolutionize the way we shop. This innovative app is your go-to companion for a smarter and more efficient shopping experience. ShopSmart is all about making your shopping journey hassle-free, convenient, and enjoyable.",
-    "projectID": 4,
-    "projectTitle": "ShopSmart: Your Personal Shopping Assistant",
-    "projectType": "Mobile App Developmenter",
+    "projectDesc": "The Caesar Cipher represents a traditional encryption method in which message characters are shifted by a fixed number of positions to generate a concealed message. Implemented in Java, it serves as an illustration of fundamental principles in data encryption.",
+    "projectID": 7,
+    "projectTitle": "Ceaser Cipher Java",
+    "projectType": "Object oriented project",
     "userID": 1
   },
   
-  {
-    "projectDesc": "Chess Game in Java",
-    "projectID": 5,
-    "projectTitle": "Chess Game",
-    "projectType": "vgyhvvghg",
-    "userID": 1
-  }
 ]
 
 /*
