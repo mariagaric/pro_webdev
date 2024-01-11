@@ -66,7 +66,7 @@ app.get('/projects', (req, res) => {
         isAdmin: req.session.isAdmin,
         projects: data,
         helpers: {
-          check(aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) {
+          check(aa) {
             if (req.session.isAdmin) return true;
             else return false;
           }
